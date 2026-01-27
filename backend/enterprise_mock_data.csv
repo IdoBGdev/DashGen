@@ -1,0 +1,201 @@
+Date,Region,Product,Category,Sales Revenue,Units Sold,Customer Satisfaction,Operational Efficiency
+2025-07-11,East,Widget B,Office,638.14,3,8.0,0.5866
+2025-07-12,North,Widget B,Office,5610.09,33,1.0,0.9439
+2025-07-13,South,Gadget X,Electronics,3417.61,50,4.0,0.8556
+2025-07-14,East,Widget B,Home,3231.57,14,4.0,0.8102
+2025-07-15,South,Widget A,Electronics,4564.55,39,9.0,0.7131
+2025-07-16,East,SuperTool,Electronics,3184.12,29,9.0,0.8979
+2025-07-17,South,Widget B,Home,366.7,29,2.0,0.9785
+2025-07-18,East,Widget B,Office,1467.94,37,2.0,0.7679
+2025-07-19,East,Gadget X,Home,2047.14,34,,0.8327
+2025-07-20,North,SuperTool,Electronics,5589.95,31,2.0,0.6685
+2025-07-21,East,Widget A,Home,2674.34,27,1.0,0.7645
+2025-07-22,South,Widget B,Home,879.11,7,7.0,0.6842
+2025-07-23,South,Gadget X,Home,2205.45,47,8.0,0.8642
+2025-07-24,East,Gadget Y,Office,983.8,5,3.0,0.6708
+2025-07-25,East,Gadget Y,Electronics,4238.35,31,6.0,0.8507
+2025-07-26,North,Widget B,Electronics,779.34,47,2.0,0.6615
+2025-07-27,North,SuperTool,Home,4815.63,45,7.0,0.6406
+2025-07-28,North,Widget A,Electronics,2237.32,11,1.0,0.9461
+2025-07-29,West,Widget B,Electronics,2205.52,9,10.0,0.8553
+2025-07-30,North,SuperTool,Electronics,3586.36,32,10.0,0.7178
+2025-07-31,South,Widget A,Home,4237.16,20,3.0,0.719
+2025-08-01,West,SuperTool,Office,2553.43,22,8.0,0.8732
+2025-08-02,South,Widget B,Office,2217.44,17,9.0,0.7661
+2025-08-03,South,Widget B,Home,274.38,50,5.0,0.5153
+2025-08-04,South,Gadget X,Home,1540.16,25,7.0,0.6313
+2025-08-05,North,Gadget Y,Electronics,4832.1,7,2.0,0.8334
+2025-08-06,West,Gadget X,Office,358.46,24,6.0,0.7458
+2025-08-07,East,Widget B,Electronics,1042.3,21,6.0,0.8688
+2025-08-08,West,Widget A,Electronics,2779.84,43,4.0,0.728
+2025-08-09,South,Widget A,Office,1782.79,5,4.0,0.5593
+2025-08-10,North,Widget A,Electronics,4042.45,33,9.0,0.9528
+2025-08-11,West,Gadget X,Office,2351.08,25,1.0,0.5704
+2025-08-12,South,Widget A,Office,1106.51,7,4.0,0.528
+2025-08-13,East,Gadget X,Electronics,3821.34,45,1.0,0.5511
+2025-08-14,East,SuperTool,Home,1916.38,42,10.0,0.5828
+2025-08-15,West,Gadget X,Home,1497.81,14,5.0,0.9726
+2025-08-16,East,SuperTool,Electronics,3625.42,49,8.0,0.5216
+2025-08-17,North,Widget A,Home,1371.28,35,10.0,0.9827
+2025-08-18,South,Widget A,Electronics,4445.87,20,4.0,0.5391
+2025-08-19,South,Gadget Y,Office,1776.08,47,2.0,0.903
+2025-08-20,North,Widget A,Electronics,5391.1,25,2.0,0.7044
+2025-08-21,East,Widget A,Office,2660.27,40,3.0,0.6779
+2025-08-22,West,Widget B,Electronics,137.78,30,6.0,0.6089
+2025-08-23,South,Gadget Y,Home,1035.64,46,2.0,0.8
+2025-08-24,West,Widget B,Office,2434.29,11,9.0,0.8512
+2025-08-25,West,Widget A,Office,908.66,26,5.0,0.7884
+2025-08-26,East,Gadget Y,Electronics,3692.13,13,7.0,0.6665
+2025-08-27,East,Gadget Y,Home,1345.71,2,5.0,0.8746
+2025-08-28,East,Widget B,Office,155.49,4,5.0,0.9516
+2025-08-29,West,Widget B,Office,143.02,27,1.0,0.5705
+2025-08-30,East,Widget A,Electronics,4115.24,47,9.0,0.5644
+2025-08-31,West,SuperTool,Electronics,652.52,20,2.0,0.5922
+2025-09-01,North,Widget A,Home,1086.97,10,2.0,0.9124
+2025-09-02,West,Gadget Y,Electronics,4966.57,2,9.0,0.9931
+2025-09-03,South,Widget B,Home,4445.78,6,7.0,0.9322
+2025-09-04,West,Gadget Y,Electronics,3670.12,21,4.0,0.6119
+2025-09-05,West,Gadget Y,Home,1936.42,34,,0.9351
+2025-09-06,West,Gadget X,Electronics,3350.02,36,5.0,0.8261
+2025-09-07,North,Widget A,Office,4915.18,23,8.0,0.577
+2025-09-08,South,Gadget X,Office,1092.05,8,5.0,0.8537
+2025-09-09,North,Gadget X,Home,2884.15,40,10.0,0.7909
+2025-09-10,East,Widget A,Electronics,4553.56,42,5.0,0.9275
+2025-09-11,West,SuperTool,Office,3628.13,39,9.0,0.7967
+2025-09-12,South,Gadget Y,Home,1758.12,42,9.0,0.5343
+2025-09-13,South,Gadget X,Electronics,878.76,4,9.0,0.8357
+2025-09-14,West,SuperTool,Electronics,1859.9,38,1.0,0.8063
+2025-09-15,North,SuperTool,Electronics,478.57,40,2.0,0.6544
+2025-09-16,West,Widget A,Office,4674.42,26,1.0,0.7905
+2025-09-17,South,Gadget Y,Office,619.32,50,5.0,0.869
+2025-09-18,West,Widget B,Office,563.08,40,6.0,0.913
+2025-09-19,East,SuperTool,Home,4920.25,30,3.0,0.8502
+2025-09-20,East,SuperTool,Office,4816.17,14,7.0,0.8264
+2025-09-21,North,SuperTool,Home,2843.39,21,6.0,0.7073
+2025-09-22,North,Widget B,Home,5015.72,5,10.0,0.5297
+2025-09-23,South,Gadget X,Home,2284.38,40,,0.7261
+2025-09-24,North,SuperTool,Office,2476.2,44,8.0,0.5105
+2025-09-25,West,Gadget Y,Electronics,1482.64,6,3.0,0.812
+2025-09-26,East,Gadget Y,Office,3792.24,9,4.0,0.8356
+2025-09-27,South,Gadget Y,Electronics,3325.55,7,2.0,0.6093
+2025-09-28,North,Gadget Y,Electronics,4047.02,3,4.0,0.9682
+2025-09-29,West,Gadget Y,Home,2367.21,42,10.0,0.5442
+2025-09-30,North,SuperTool,Office,524.15,39,7.0,0.5322
+2025-10-01,East,Gadget X,Office,2152.67,19,7.0,0.8766
+2025-10-02,East,Gadget Y,Home,385.26,19,9.0,0.6816
+2025-10-03,West,Widget B,Office,2212.38,14,7.0,0.6883
+2025-10-04,North,Gadget Y,Office,1527.0,33,9.0,0.923
+2025-10-05,North,Widget B,Home,482.95,31,2.0,0.543
+2025-10-06,West,Widget B,Office,2799.46,41,4.0,0.7137
+2025-10-07,West,SuperTool,Electronics,4710.13,36,4.0,0.5354
+2025-10-08,East,Gadget Y,Office,3222.35,12,4.0,0.551
+2025-10-09,North,Gadget Y,Electronics,1830.45,1,2.0,0.9959
+2025-10-10,West,Gadget X,Electronics,601.47,23,5.0,0.5129
+2025-10-11,South,Widget A,Home,959.91,13,8.0,0.8499
+2025-10-12,South,Gadget Y,Home,840.75,36,9.0,0.6848
+2025-10-13,East,Gadget Y,Home,2568.36,33,10.0,0.7178
+2025-10-14,South,Widget A,Home,3954.13,3,3.0,0.8288
+2025-10-15,West,Widget B,Home,1535.83,5,9.0,0.5768
+2025-10-16,North,Gadget Y,Office,2300.55,27,7.0,0.5335
+2025-10-17,South,SuperTool,Office,3091.57,40,3.0,0.5879
+2025-10-18,South,Widget B,Office,3327.16,22,9.0,0.9803
+2025-10-19,West,Gadget Y,Office,1468.9,13,10.0,0.7847
+2025-10-20,South,Widget A,Office,3486.79,11,10.0,0.5646
+2025-10-21,South,Widget B,Home,3605.5,6,2.0,0.8177
+2025-10-22,West,Widget A,Electronics,1424.25,42,6.0,0.6046
+2025-10-23,West,Gadget X,Electronics,1314.87,33,7.0,0.7357
+2025-10-24,East,Widget A,Electronics,2469.75,47,,0.6166
+2025-10-25,North,Widget A,Home,5736.89,44,2.0,0.6248
+2025-10-26,West,SuperTool,Home,1181.41,6,2.0,0.8609
+2025-10-27,North,Gadget X,Office,1486.03,27,9.0,0.5233
+2025-10-28,East,Widget B,Office,4608.97,9,5.0,0.6267
+2025-10-29,East,Widget B,Office,2866.11,2,7.0,0.8969
+2025-10-30,East,Widget B,Office,1061.83,41,7.0,0.6746
+2025-10-31,East,Gadget Y,Electronics,273.13,39,1.0,0.7233
+2025-11-01,South,SuperTool,Office,1426.96,25,5.0,0.6326
+2025-11-02,South,SuperTool,Home,1805.8,4,3.0,0.6084
+2025-11-03,North,SuperTool,Home,3113.33,8,5.0,0.6823
+2025-11-04,North,SuperTool,Office,583.08,3,5.0,0.702
+2025-11-05,East,Widget B,Office,4762.71,38,10.0,0.7493
+2025-11-06,South,Gadget Y,Office,964.23,15,1.0,0.8058
+2025-11-07,North,Gadget Y,Home,1399.01,46,7.0,0.9335
+2025-11-08,North,Gadget Y,Electronics,2191.45,50,6.0,0.6433
+2025-11-09,West,SuperTool,Office,452.93,30,6.0,0.5226
+2025-11-10,East,SuperTool,Home,261.05,39,1.0,0.5872
+2025-11-11,West,Widget B,Home,4927.8,15,6.0,0.67
+2025-11-12,West,Widget A,Office,2387.4,49,8.0,0.6793
+2025-11-13,South,Widget A,Home,2703.71,11,9.0,0.5761
+2025-11-14,East,Widget A,Office,3005.61,41,2.0,0.532
+2025-11-15,West,Gadget X,Office,1221.98,18,9.0,0.7023
+2025-11-16,West,SuperTool,Home,4701.32,9,4.0,0.8627
+2025-11-17,West,Gadget Y,Office,3385.59,39,8.0,0.5132
+2025-11-18,South,SuperTool,Electronics,3271.66,31,3.0,0.8358
+2025-11-19,East,SuperTool,Home,1981.85,48,6.0,0.7544
+2025-11-20,North,Widget A,Office,1628.09,45,,0.6632
+2025-11-21,East,Gadget X,Home,1447.83,46,2.0,0.8648
+2025-11-22,East,Widget A,Office,4830.22,35,1.0,0.7688
+2025-11-23,South,Widget A,Office,2101.17,42,8.0,0.688
+2025-11-24,East,Gadget X,Office,907.56,10,9.0,0.5507
+2025-11-25,West,Widget A,Home,3302.61,7,10.0,0.6573
+2025-11-26,East,Widget A,Electronics,2530.95,9,10.0,0.5652
+2025-11-27,North,Gadget X,Electronics,1196.77,19,7.0,0.6573
+2025-11-28,East,SuperTool,Office,589.78,41,8.0,0.6507
+2025-11-29,West,SuperTool,Electronics,4307.51,16,7.0,0.5275
+2025-11-30,East,Gadget Y,Office,1805.34,4,10.0,0.7376
+2025-12-01,North,Widget B,Office,4177.63,49,3.0,0.7845
+2025-12-02,North,Widget A,Office,1984.6,36,10.0,0.7326
+2025-12-03,South,SuperTool,Office,837.32,31,5.0,0.8744
+2025-12-04,West,Widget A,Home,2094.92,37,2.0,0.5625
+2025-12-05,South,Widget B,Office,824.57,28,4.0,0.8425
+2025-12-06,East,SuperTool,Home,2833.9,7,9.0,0.8006
+2025-12-07,West,Gadget X,Office,2124.16,7,2.0,0.8287
+2025-12-08,South,Gadget X,Office,588.3,9,5.0,0.9919
+2025-12-09,South,SuperTool,Electronics,1975.91,39,9.0,0.943
+2025-12-10,East,Gadget X,Office,884.56,42,,0.794
+2025-12-11,East,Gadget Y,Electronics,4240.53,23,6.0,0.6526
+2025-12-12,East,Widget A,Electronics,2750.57,39,3.0,0.8231
+2025-12-13,South,Widget A,Home,2517.8,27,4.0,0.9189
+2025-12-14,East,Widget A,Office,2342.99,2,2.0,0.7541
+2025-12-15,East,Widget A,Home,3214.35,24,6.0,0.8035
+2025-12-16,South,Gadget X,Electronics,2611.19,45,8.0,0.5813
+2025-12-17,South,Gadget X,Office,3828.83,33,9.0,0.6385
+2025-12-18,West,Gadget Y,Home,3052.25,47,2.0,0.7292
+2025-12-19,East,Gadget X,Home,854.93,6,3.0,0.6644
+2025-12-20,West,Widget A,Office,763.29,21,6.0,0.9005
+2025-12-21,North,Gadget Y,Electronics,3043.78,33,8.0,0.8282
+2025-12-22,North,SuperTool,Electronics,946.55,46,10.0,0.5447
+2025-12-23,South,Gadget Y,Office,4967.79,37,9.0,0.6595
+2025-12-24,South,Widget A,Home,4150.92,25,1.0,0.5921
+2025-12-25,North,Widget A,Electronics,1934.52,21,5.0,0.6536
+2025-12-26,East,Gadget Y,Home,761.0,22,3.0,0.9038
+2025-12-27,West,Gadget X,Home,2127.43,29,8.0,0.5802
+2025-12-28,West,Gadget Y,Electronics,3999.44,5,10.0,0.6356
+2025-12-29,West,Widget B,Office,4519.77,37,4.0,0.8765
+2025-12-30,East,Widget B,Office,828.48,5,2.0,0.7738
+2025-12-31,South,Gadget X,Electronics,1455.94,32,2.0,0.9602
+2026-01-01,South,Gadget Y,Electronics,1756.05,26,9.0,0.7286
+2026-01-02,North,Gadget X,Office,4973.67,28,3.0,0.8839
+2026-01-03,North,SuperTool,Home,3579.15,43,1.0,0.9732
+2026-01-04,North,Widget A,Office,5138.42,19,1.0,0.9284
+2026-01-05,North,Gadget Y,Home,5481.74,28,2.0,0.5982
+2026-01-06,South,Gadget Y,Electronics,2689.36,43,8.0,0.8594
+2026-01-07,East,SuperTool,Home,3427.2,35,6.0,0.837
+2026-01-08,North,Gadget X,Office,1065.74,17,,0.6922
+2026-01-09,East,Gadget X,Office,1056.13,9,9.0,0.8146
+2026-01-10,North,Gadget X,Office,2918.89,45,3.0,0.8381
+2026-01-11,North,Gadget Y,Office,267.09,24,4.0,0.9631
+2026-01-12,South,SuperTool,Office,1732.75,41,7.0,0.881
+2026-01-13,East,Widget A,Home,4387.76,18,4.0,0.7967
+2026-01-14,West,Gadget X,Office,4087.87,4,4.0,0.8421
+2026-01-15,West,Widget A,Home,4097.87,1,9.0,0.5636
+2026-01-16,East,SuperTool,Home,1912.46,38,9.0,0.6661
+2026-01-17,North,SuperTool,Office,4166.76,46,8.0,0.8642
+2026-01-18,South,Gadget Y,Office,3394.61,35,8.0,0.7232
+2026-01-19,South,Widget B,Home,3471.33,10,4.0,0.5807
+2026-01-20,North,SuperTool,Home,4270.87,2,4.0,0.7626
+2026-01-21,North,Widget A,Home,4773.64,15,6.0,0.7401
+2026-01-22,East,Widget B,Office,4264.73,35,8.0,0.6463
+2026-01-23,West,Widget A,Office,4463.69,48,5.0,0.8237
+2026-01-24,West,Widget B,Home,421.82,4,2.0,0.7621
+2026-01-25,North,Widget B,Office,3329.26,37,,0.869
+2026-01-26,South,Gadget Y,Home,239.09,29,6.0,0.8089

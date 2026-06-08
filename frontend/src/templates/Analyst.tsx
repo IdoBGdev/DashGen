@@ -1,17 +1,20 @@
 import React from 'react';
+import { ChartGradients, CustomTooltip } from '../components/ChartAssets';
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 import { Card } from '../components/Card';
 import { Table, Search, Filter, Download, Database, ChevronRight } from 'lucide-react';
 
 interface AnalystProps {
     data: any;
+    onExportCSV: () => void;
 }
 
-const Analyst: React.FC<AnalystProps> = ({ data }) => {
+const Analyst: React.FC<AnalystProps> = ({ data, onExportCSV }) => {
     const { stats, distribution_data, raw_preview } = data;
 
     return (
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 font-sans relative">
+            <ChartGradients />
             {/* Left Sidebar */}
             <div className="lg:col-span-1 space-y-6">
                 <div className="glass-dark rounded-[2.5rem] p-8 text-white">
@@ -37,13 +40,11 @@ const Analyst: React.FC<AnalystProps> = ({ data }) => {
                 <Card title="Distribution" subtitle="Data density mapping" className="!rounded-[2.5rem]">
                     <div className="h-[250px] w-full mt-4">
                         <ResponsiveContainer width="100%" height="100%">
-                            <BarChart data={distribution_data}>
+                            <BarChart data={distribution_data} barSize={24}>
                                 <CartesianGrid vertical={false} stroke="#f1f5f9" strokeDasharray="3 3" />
                                 <XAxis dataKey="label" hide />
-                                <Tooltip
-                                    contentStyle={{ backgroundColor: '#fff', borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
-                                />
-                                <Bar dataKey="value" fill="#3b82f6" radius={[6, 6, 0, 0]} />
+                                <Tooltip content={<CustomTooltip />} cursor={{ fill: '#f8fafc' }} />
+                                <Bar dataKey="value" fill="url(#colorEmerald)" radius={[6, 6, 6, 6]} />
                             </BarChart>
                         </ResponsiveContainer>
                     </div>
@@ -65,7 +66,7 @@ const Analyst: React.FC<AnalystProps> = ({ data }) => {
                             <button className="btn-secondary !py-2 !px-4 !rounded-xl flex items-center text-xs font-bold">
                                 <Filter className="w-3.5 h-3.5 mr-2" /> Filter
                             </button>
-                            <button className="btn-primary !py-2 !px-4 !rounded-xl flex items-center text-xs font-bold">
+                            <button onClick={onExportCSV} className="btn-primary !py-2 !px-4 !rounded-xl flex items-center text-xs font-bold">
                                 <Download className="w-3.5 h-3.5 mr-2" /> Export
                             </button>
                         </div>

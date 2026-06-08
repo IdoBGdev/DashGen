@@ -100,12 +100,12 @@ const App = () => {
     const renderTemplate = () => {
         if (!dashboardData) return null;
         switch (activeTemplate) {
-            case 'executive': return <ExecutiveTemplate data={dashboardData} />;
-            case 'analyst': return <AnalystTemplate data={dashboardData} />;
-            case 'benchmarker': return <BenchmarkerTemplate data={dashboardData} />;
-            case 'visualizer': return <VisualizerTemplate data={dashboardData} />;
+            case 'executive': return <ExecutiveTemplate data={dashboardData} onExportCSV={handleExportCSV} />;
+            case 'analyst': return <AnalystTemplate data={dashboardData} onExportCSV={handleExportCSV} />;
+            case 'benchmarker': return <BenchmarkerTemplate data={dashboardData} onExportCSV={handleExportCSV} />;
+            case 'visualizer': return <VisualizerTemplate data={dashboardData} onExportCSV={handleExportCSV} />;
             case 'smart': return <SmartDashboardTemplate data={dashboardData} config={smartConfig} onExportCSV={handleExportCSV} />;
-            default: return <ExecutiveTemplate data={dashboardData} />;
+            default: return <ExecutiveTemplate data={dashboardData} onExportCSV={handleExportCSV} />;
         }
     };
 

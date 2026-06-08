@@ -35,75 +35,82 @@ class LLMService:
         clean_stats = clean_floats(stats_dict)
 
         prompt = f"""
-        You are a Senior Data Scientist and Lead UI/UX Designer. 
-        Your goal is to create a COMPREHENSIVE MULTI-KPI dashboard project.
+        ACT AS: Chief Data Officer & Lead UI/UX Designer for a Fortune 500 company.
         
+        GOAL: Create a HIGH-DENSITY, EXECUTIVE-GRADE dashboard configuration.
+        The user wants a "dashboard creating machine" - this means MAXIMAL INFORMATION DENSITY, strict structure, and deep insights.
+        DO NOT generate sparse or empty pages. Every pixel must provide value.
+
         CONTEXT:
-        - Primary Metrics to Analyze: {request.target_columns}
-        - Current Grouping: '{request.group_by if request.group_by else "Generic"}'
-        - AVAILABLE CHART KEYS (Use these for 'data_key'): {request.chart_keys}
+        - Primary Metrics (KPIs): {request.target_columns}
+        - Grouping Dimension: '{request.group_by if request.group_by else "None"}'
+        - AVAILABLE CHART KEYS: {request.chart_keys}
         
-        FULL DATA SCHEMA:
-        {json.dumps(request.full_schema, indent=2)}
+        DATA INTELLIGENCE:
+        Schema: {json.dumps(request.full_schema, indent=2)}
+        Preview: {json.dumps(request.data_preview, indent=2)}
+        Statistics: {json.dumps(clean_stats, indent=2)}
+
+        INSTRUCTIONS:
+        Design a 4-6 PAGE dashboard JSON structure.
         
-        DATA PREVIEW:
-        {json.dumps(request.data_preview, indent=2)}
+        PAGE 1: "EXECUTIVE SUMMARY"
+        - MUST include big number KPIs for ALL primary metrics.
+        - MUST include a textual "AI Executive Insight" widget explaining the overall health.
+        - High-level trends (Area/Line charts) only.
         
-        CORE STATISTICS (Mapped by Metric):
-        {json.dumps(clean_stats, indent=2)}
+        PAGE 2: "TREND ANALYSIS"
+        - Deep dive into time-series or sequential patterns.
+        - Compare metrics against each other (e.g., "Metric A vs Metric B").
         
-        TASK:
-        Design a MULTI-PAGE DASHBOARD in JSON format that analyzes ALL target metrics.
-        The dashboard should cater to different organizational roles (e.g., Executive, Operational, Analytical).
+        PAGE 3: "SEGMENTATION & DISTRIBUTION"
+        - Bar charts, Pie charts, and Leaderboards.
+        - Focus on the '{request.group_by}' dimension if it exists.
         
-        LOGIC RULES:
-        1. MULTI-KPI INTEGRATION: Every page should ideally feature insights or widgets comparing or summarizing the {len(request.target_columns)} target metrics.
-        2. KPIS: Suggest logical aggregations and comparisons between metrics (e.g., "Metric A vs Metric B").
-        3. PAGES:
-        4. WIDGETS:
-            - 'kpi': Use for single critical numbers. Ensure 'title' reflects which metric it is.
-            - 'bar'/'line': Use for comparisons.
-            - 'area': Use for abundance/volume.
-            - 'leaderboard': Use for ranking.
-            - 'insight': Provide strategic commentary on the relationship between metrics.
+        PAGE 4: "ANOMALIES & OUTLIERS"
+        - Leaderboards of top/bottom performers.
+        - Distribution analysis.
+
+        WIDGET TYPES & RULES:
+        - 'kpi': Single number. Title must be descriptive.
+        - 'insight': TEXT ONLY. A strategic observation derived from the stats (e.g., "Retention is down 5% in Q3").
+        - 'line': Time-series or trend.
+        - 'area': Volume accumulation.
+        - 'bar': Categorical comparison.
+        - 'pie': Composition (max 6 slices).
+        - 'leaderboard': Top 5 / Bottom 5 lists.
+
+        LAYOUT RULES:
+        - width: "third" (1/3 width), "half" (1/2 width), "full" (full width).
+        - MIX these widths to create a masonry-like dense grid.
+        - AVOID putting 10 "full" width widgets in a row. Use "third" for KPIs and "half" for charts.
         
-        JSON STRUCTURE (Strict Adherence Required):
+        JSON STRUCTURE (Strict):
         {{
             "shell": {{
-                "navbar_title": "Enterprise Multi-KPI Dashboard",
+                "navbar_title": "Enterprise Analytics Suite",
                 "sidebar_items": [
-                    {{ "id": "p1", "label": "Executive View", "icon": "ShieldCheck" }},
-                    {{ "id": "p2", "label": "Comparative Analysis", "icon": "Binary" }},
-                    {{ "id": "p3", "label": "Metric Distributions", "icon": "Layers" }}
+                    {{ "id": "p1", "label": "Executive Summary", "icon": "LayoutDashboard" }},
+                    {{ "id": "p2", "label": "Trend Analysis", "icon": "TrendingUp" }},
+                    {{ "id": "p3", "label": "Segmentation", "icon": "PieChart" }},
+                    {{ "id": "p4", "label": "Leaderboards", "icon": "Trophy" }}
                 ],
-                "primary_color": "#1e40af"
+                "primary_color": "#0f172a"
             }},
             "pages": [
                 {{
                     "id": "p1",
-                    "title": "Executive Overview",
-                    "summary": "High-level summary of [Metric 1] and [Metric 2] performance.",
+                    "title": "Executive Summary",
+                    "summary": "High-level strategic overview of key performance indicators.",
                     "widgets": [
-                         {{ "id": "w1_1", "type": "kpi", "title": "Total Revenue", "data_key": "stats", "width": "third" }},
-                         {{ "id": "w1_2", "type": "bar", "title": "Revenue Trend", "data_key": "chart_data", "width": "full" }}
+                        {{ "id": "w1_1", "type": "insight", "title": "Strategic Overview", "description": "Analyzing [Metric] shows a strong positive correlation with...", "width": "full" }},
+                        {{ "id": "w1_2", "type": "kpi", "title": "Total Revenue", "data_key": "stats", "width": "third" }},
+                         ... (more widgets)
                     ]
                 }},
-                {{
-                    "id": "p2",
-                    "title": "Deep Dive",
-                    "summary": "Detailed analysis of [Metric 1] distribution.",
-                    "widgets": [ ... ]
-                }}
+                ... (more pages)
             ]
         }}
-        
-        Rules:
-        1. Return ONLY the JSON object.
-        2. Ensure 'data_key' values are logical (stats, chart_data, leaderboard, distribution_data).
-        3. Use Lucide icon names in PascalCase.
-        4. Avoid using NaN or Inf in the output JSON.
-        5. EVERY page MUST have a 'summary'.
-        6. EVERY widget MUST have a unique 'id' and 'type'.
         """
 
         try:

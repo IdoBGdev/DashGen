@@ -1,13 +1,15 @@
 import React from 'react';
+import { ChartGradients, CustomTooltip } from '../components/ChartAssets';
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, AreaChart, Area } from 'recharts';
 import { MetricCard, Card } from '../components/Card';
-import { TrendingUp, Zap, Target, Layers } from 'lucide-react';
+import { TrendingUp, Zap, Target, Layers, Download } from 'lucide-react';
 
 interface ExecutiveProps {
     data: any;
+    onExportCSV: () => void;
 }
 
-const Executive: React.FC<ExecutiveProps> = ({ data }) => {
+const Executive: React.FC<ExecutiveProps> = ({ data, onExportCSV }) => {
     const { stats, chart_data } = data;
 
     const displayStability = (stats.std_dev && stats.mean && stats.mean !== 0)
@@ -15,8 +17,24 @@ const Executive: React.FC<ExecutiveProps> = ({ data }) => {
         : '-';
 
     return (
-        <div className="space-y-10">
-            {/* Top: Large Scorecards */}
+        <div className="space-y-10 font-sans relative">
+            <ChartGradients />
+
+            {/* Header & Scorecards */}
+            <div className="flex items-center justify-between">
+                <div className="space-y-1">
+                    <h2 className="text-3xl font-black tracking-tighter text-slate-900">Executive Overview</h2>
+                    <p className="text-sm font-bold text-slate-400 uppercase tracking-widest">High-Level Performance Metrics</p>
+                </div>
+                <button
+                    onClick={onExportCSV}
+                    className="flex items-center space-x-2 bg-white border border-slate-200 text-slate-600 px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-slate-50 hover:text-blue-600 transition-all shadow-sm"
+                >
+                    <Download className="w-4 h-4" />
+                    <span>Export Data</span>
+                </button>
+            </div>
+
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                 <MetricCard
                     label="Total Volumne"
@@ -44,30 +62,21 @@ const Executive: React.FC<ExecutiveProps> = ({ data }) => {
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 {/* Trend Area */}
-                <Card title="Structural Trend" subtitle="Dynamic metric progression across components" className="lg:col-span-2">
+                <Card title="Structural Trend" subtitle="Dynamic metric progression across components" className="lg:col-span-2 !rounded-[2.5rem]">
                     <div className="h-[400px] w-full mt-6">
                         <ResponsiveContainer width="100%" height="100%">
                             <AreaChart data={chart_data}>
-                                <defs>
-                                    <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
-                                        <stop offset="5%" stopColor="#2563eb" stopOpacity={0.1} />
-                                        <stop offset="95%" stopColor="#2563eb" stopOpacity={0} />
-                                    </linearGradient>
-                                </defs>
                                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
-                                <XAxis dataKey="label" stroke="#94a3b8" fontSize={10} tickLine={false} axisLine={false} dy={10} />
-                                <YAxis stroke="#94a3b8" fontSize={10} tickLine={false} axisLine={false} />
-                                <Tooltip
-                                    contentStyle={{ backgroundColor: 'rgba(255, 255, 255, 0.8)', backdropFilter: 'blur(8px)', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.2)', boxShadow: '0 20px 25px -5px rgb(0 0 0 / 0.1)' }}
-                                    itemStyle={{ fontWeight: 800, color: '#1e293b' }}
-                                />
+                                <XAxis dataKey="label" stroke="#94a3b8" fontSize={10} fontWeight={800} tickLine={false} axisLine={false} dy={10} />
+                                <YAxis hide />
+                                <Tooltip content={<CustomTooltip />} cursor={{ fill: '#f8fafc' }} />
                                 <Area
                                     type="monotone"
                                     dataKey="value"
-                                    stroke="#2563eb"
+                                    stroke="#3b82f6"
                                     strokeWidth={4}
                                     fillOpacity={1}
-                                    fill="url(#colorValue)"
+                                    fill="url(#colorBlue)"
                                 />
                             </AreaChart>
                         </ResponsiveContainer>

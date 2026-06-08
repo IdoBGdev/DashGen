@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
+import { ChartGradients, CustomTooltip } from '../components/ChartAssets';
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Cell } from 'recharts';
 import { Card } from '../components/Card';
-import { Trophy, ArrowUp, ArrowDown, Activity, Star } from 'lucide-react';
+import { Trophy, ArrowUp, ArrowDown, Activity, Star, Download } from 'lucide-react';
 
 interface BenchmarkerProps {
     data: any;
+    onExportCSV: () => void;
 }
 
-const Benchmarker: React.FC<BenchmarkerProps> = ({ data }) => {
+const Benchmarker: React.FC<BenchmarkerProps> = ({ data, onExportCSV }) => {
     const { stats } = data;
 
     // Get keys that have leaderboard data
@@ -33,9 +35,17 @@ const Benchmarker: React.FC<BenchmarkerProps> = ({ data }) => {
     });
 
     return (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 font-sans relative">
+            <ChartGradients />
             {/* Left: Horizontal Bar Chart Leaderboard */}
-            <Card title="Market Standings" subtitle="Entity comparison against median performance" className="!rounded-[2.5rem]">
+            <Card title="Market Standings" subtitle="Entity comparison against median performance" className="!rounded-[2.5rem] relative">
+                <button
+                    onClick={onExportCSV}
+                    className="absolute top-8 right-32 flex items-center space-x-2 bg-slate-100 hover:bg-slate-200 text-slate-600 px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all z-20"
+                >
+                    <Download className="w-3 h-3" />
+                    <span>Export</span>
+                </button>
                 {keysToShow.length > 1 && (
                     <div className="absolute top-8 right-8 flex items-center space-x-2 bg-white p-1.5 rounded-xl border border-slate-200 shadow-sm z-10">
                         <select
@@ -69,11 +79,8 @@ const Benchmarker: React.FC<BenchmarkerProps> = ({ data }) => {
                             <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} stroke="#f1f5f9" />
                             <XAxis type="number" hide />
                             <YAxis dataKey="label" type="category" fontSize={10} fontWeight={800} width={100} axisLine={false} tickLine={false} />
-                            <Tooltip
-                                cursor={{ fill: 'transparent' }}
-                                contentStyle={{ borderRadius: '16px', border: 'none', boxShadow: '0 20px 25px -5px rgb(0 0 0 / 0.1)' }}
-                            />
-                            <Bar dataKey="value" radius={[0, 12, 12, 0]} barSize={32}>
+                            <Tooltip content={<CustomTooltip />} cursor={{ fill: '#f8fafc' }} />
+                            <Bar dataKey="value" radius={[0, 12, 12, 0]} barSize={24}>
                                 {enhancedLeaderboard.map((entry: any, index: number) => (
                                     <Cell key={`cell-${index}`} fill={entry.diff >= 0 ? 'url(#posGradient)' : 'url(#negGradient)'} />
                                 ))}

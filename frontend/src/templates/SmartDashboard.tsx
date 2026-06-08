@@ -3,9 +3,10 @@ import * as LucideIcons from 'lucide-react';
 import { Card } from '../components/Card';
 import {
     BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
-    PieChart, Pie, Cell, LineChart, Line, AreaChart, Area
+    PieChart, Pie, Cell, LineChart, Line, AreaChart, Area, Legend
 } from 'recharts';
-import { Sparkles, BrainCircuit, Activity, ChevronRight, Info, Menu, X, Download } from 'lucide-react';
+import { Sparkles, BrainCircuit, Activity, ChevronRight, Info, Menu, X, Download, TrendingUp, PieChart as PieIcon, Trophy, MessageSquare, ShieldCheck, Binary, Layers } from 'lucide-react';
+import { ChartGradients, CustomTooltip } from '../components/ChartAssets';
 
 interface WidgetConfig {
     id: string;
@@ -71,180 +72,174 @@ const SmartDashboard: React.FC<SmartDashboardProps> = ({ data, config, onExportC
     if (!activePage) return <div className="p-10 text-center font-bold">No pages generated.</div>;
 
     const renderWidget = (widget: WidgetConfig) => {
-        // Smart Lookup: Check top level, then chart_data, then leaderboard
-        const widgetData = data[widget.data_key] ||
-            (data.chart_data && data.chart_data[widget.data_key]) ||
-            (data.leaderboard && data.leaderboard[widget.data_key]) ||
-            [];
+        try {
+            // Smart Lookup: Check top level, then chart_data, then leaderboard
+            const widgetData = data[widget.data_key] ||
+                (data.chart_data && data.chart_data[widget.data_key]) ||
+                (data.leaderboard && data.leaderboard[widget.data_key]) ||
+                [];
 
-        const colSpan = widget.width === 'full' ? 'lg:col-span-3' : widget.width === 'half' ? 'lg:col-span-1.5' : 'lg:col-span-1';
+            // Ensure widgetData is an array for map operations if it's not a KPI
+            const safeWidgetData = Array.isArray(widgetData) ? widgetData : [];
 
-        switch (widget.type) {
-            case 'kpi':
-                const kpiKey = widget.title.toLowerCase().replace(/\s+/g, '_');
-                const kpiValue = widget.data_key === 'stats'
-                    ? (data.stats[kpiKey] !== undefined ? data.stats[kpiKey] : data.stats.mean)
-                    : 0;
-                return (
-                    <div key={widget.id} className={`${colSpan} glass p-8 rounded-[2rem] border border-white/20 shadow-xl`}>
-                        <div className="flex items-center justify-between mb-4">
-                            <div className="p-3 rounded-2xl bg-blue-50 text-blue-600">
-                                <Activity className="w-5 h-5" />
-                            </div>
-                            <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Metric</span>
-                        </div>
-                        <h3 className="text-slate-500 text-xs font-bold uppercase tracking-wider">{widget.title}</h3>
-                        <p className="text-4xl font-black mt-2 tracking-tighter text-slate-900">
-                            {typeof kpiValue === 'number' ? kpiValue.toLocaleString(undefined, { maximumFractionDigits: 1 }) : kpiValue}
-                        </p>
-                    </div>
-                );
+            // Responsive Layout Logic (High Density)
+            const colSpan = widget.width === 'full' ? 'lg:col-span-3' : widget.width === 'half' ? 'lg:col-span-1.5' : 'lg:col-span-1';
 
-            case 'bar':
-                return (
-                    <Card key={widget.id} title={widget.title} subtitle={widget.description} className={colSpan}>
-                        <div className="h-[300px] w-full mt-6">
-                            <ResponsiveContainer width="100%" height="100%">
-                                <BarChart data={widgetData}>
-                                    <defs>
-                                        <linearGradient id={`barGrad-${widget.id}`} x1="0" y1="0" x2="0" y2="1">
-                                            <stop offset="0%" stopColor="#3b82f6" stopOpacity={1} />
-                                            <stop offset="100%" stopColor="#3b82f6" stopOpacity={0.6} />
-                                        </linearGradient>
-                                    </defs>
-                                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
-                                    <XAxis
-                                        dataKey="label"
-                                        axisLine={false}
-                                        tickLine={false}
-                                        tick={{ fill: '#94a3b8', fontSize: 10, fontWeight: 700 }}
-                                    />
-                                    <YAxis hide />
-                                    <Tooltip
-                                        contentStyle={{ borderRadius: '1rem', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
-                                    />
-                                    <Bar dataKey="value" fill={`url(#barGrad-${widget.id})`} radius={[6, 6, 0, 0]}>
-                                        {widgetData.map((entry: any, index: number) => (
-                                            <Cell key={`cell-${index}`} fill={`url(#barGrad-${widget.id})`} />
-                                        ))}
-                                    </Bar>
-                                </BarChart>
-                            </ResponsiveContainer>
-                        </div>
-                    </Card>
-                );
-
-            case 'pie':
-                return (
-                    <Card key={widget.id} title={widget.title} subtitle={widget.description} className={colSpan}>
-                        <div className="h-[300px] w-full mt-6">
-                            <ResponsiveContainer width="100%" height="100%">
-                                <PieChart>
-                                    <Pie
-                                        data={widgetData}
-                                        innerRadius={60}
-                                        outerRadius={100}
-                                        paddingAngle={5}
-                                        dataKey="value"
-                                        label={({ name }) => name}
-                                    >
-                                        {widgetData.map((entry: any, index: number) => (
-                                            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} stroke="rgba(255,255,255,0.2)" strokeWidth={2} />
-                                        ))}
-                                    </Pie>
-                                    <Tooltip />
-                                </PieChart>
-                            </ResponsiveContainer>
-                        </div>
-                    </Card>
-                );
-
-            case 'insight':
-                return (
-                    <div key={widget.id} className={`${colSpan} bg-gradient-to-br from-blue-600 to-indigo-700 p-8 rounded-[2rem] text-white shadow-2xl shadow-blue-500/20 relative overflow-hidden group`}>
-                        <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:scale-110 transition-transform">
-                            <Sparkles className="w-32 h-32" />
-                        </div>
-                        <div className="relative z-10">
-                            <div className="flex items-center space-x-2 mb-4">
-                                <BrainCircuit className="w-5 h-5 text-blue-200" />
-                                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-100">AI Recommendation</span>
-                            </div>
-                            <h3 className="text-2xl font-black tracking-tight mb-4">{widget.title}</h3>
-                            <p className="text-blue-50 font-medium leading-relaxed">
-                                {widget.description || "The data suggests a strong correlation between these metrics. Consider optimizing the workflow to improve overall efficiency."}
-                            </p>
-                        </div>
-                    </div>
-                );
-
-            case 'line':
-                return (
-                    <Card key={widget.id} title={widget.title} subtitle={widget.description} className={colSpan}>
-                        <div className="h-[300px] w-full mt-6">
-                            <ResponsiveContainer width="100%" height="100%">
-                                <LineChart data={widgetData}>
-                                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
-                                    <XAxis dataKey="label" fontSize={10} fontWeight={700} stroke="#94a3b8" axisLine={false} tickLine={false} />
-                                    <YAxis hide />
-                                    <Tooltip contentStyle={{ borderRadius: '1rem', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }} />
-                                    <Line type="monotone" dataKey="value" stroke="#3b82f6" strokeWidth={3} dot={{ r: 4, strokeWidth: 0, fill: '#3b82f6' }} />
-                                </LineChart>
-                            </ResponsiveContainer>
-                        </div>
-                    </Card>
-                );
-
-            case 'area':
-                return (
-                    <Card key={widget.id} title={widget.title} subtitle={widget.description} className={colSpan}>
-                        <div className="h-[300px] w-full mt-6">
-                            <ResponsiveContainer width="100%" height="100%">
-                                <AreaChart data={widgetData}>
-                                    <defs>
-                                        <linearGradient id={`grad-${widget.id}`} x1="0" y1="0" x2="0" y2="1">
-                                            <stop offset="5%" stopColor="#8b5cf6" stopOpacity={0.3} />
-                                            <stop offset="95%" stopColor="#8b5cf6" stopOpacity={0} />
-                                        </linearGradient>
-                                    </defs>
-                                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
-                                    <XAxis dataKey="label" fontSize={10} fontWeight={700} stroke="#94a3b8" axisLine={false} tickLine={false} />
-                                    <YAxis hide />
-                                    <Tooltip contentStyle={{ borderRadius: '1rem', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }} />
-                                    <Area type="monotone" dataKey="value" stroke="#8b5cf6" strokeWidth={3} fillOpacity={1} fill={`url(#grad-${widget.id})`} />
-                                </AreaChart>
-                            </ResponsiveContainer>
-                        </div>
-                    </Card>
-                );
-
-            case 'leaderboard':
-                const sortedData = [...widgetData].sort((a: any, b: any) => b.value - a.value).slice(0, 5);
-                return (
-                    <Card key={widget.id} title={widget.title} subtitle={widget.description} className={colSpan}>
-                        <div className="space-y-4 mt-6">
-                            {sortedData.map((item: any, i: number) => (
-                                <div key={i} className="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-100">
-                                    <div className="flex items-center space-x-3">
-                                        <div className="w-6 h-6 rounded-full bg-white border border-slate-200 flex items-center justify-center text-[10px] font-black text-slate-400">
-                                            {i + 1}
-                                        </div>
-                                        <span className="text-xs font-bold text-slate-700">{item.label}</span>
+            switch (widget.type) {
+                case 'kpi':
+                    const kpiKey = widget.title.toLowerCase().replace(/\s+/g, '_');
+                    const kpiValue = widget.data_key === 'stats'
+                        ? (data.stats[kpiKey] !== undefined ? data.stats[kpiKey] : data.stats.mean)
+                        : 0;
+                    return (
+                        <div key={widget.id} className={`${colSpan} glass p-6 rounded-[2rem] border border-white/20 shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group`}>
+                            <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                            <div className="relative z-10">
+                                <div className="flex items-center justify-between mb-3">
+                                    <div className="p-2.5 rounded-xl bg-blue-50/80 text-blue-600 shadow-sm">
+                                        <Activity className="w-5 h-5" />
                                     </div>
-                                    <span className="text-sm font-black text-slate-900">{typeof item.value === 'number' ? item.value.toLocaleString() : item.value}</span>
                                 </div>
-                            ))}
+                                <h3 className="text-slate-500 text-[10px] font-black uppercase tracking-widest mb-1">{widget.title}</h3>
+                                <p className="text-3xl font-black tracking-tighter text-slate-900 leading-none">
+                                    {typeof kpiValue === 'number' ? kpiValue.toLocaleString(undefined, { maximumFractionDigits: 1 }) : kpiValue}
+                                </p>
+                            </div>
                         </div>
-                    </Card>
-                );
+                    );
 
-            default:
-                return null;
+                case 'bar':
+                    return (
+                        <Card key={widget.id} title={widget.title} subtitle={widget.description} className={`${colSpan} !rounded-[2.5rem]`}>
+                            <div className="h-[280px] w-full mt-4">
+                                <ResponsiveContainer width="100%" height="100%">
+                                    <BarChart data={safeWidgetData} barSize={32}>
+                                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
+                                        <XAxis dataKey="label" axisLine={false} tickLine={false} tick={{ fill: '#94a3b8', fontSize: 10, fontWeight: 800 }} dy={10} />
+                                        <Tooltip content={<CustomTooltip />} cursor={{ fill: '#f8fafc' }} />
+                                        <Bar dataKey="value" fill="url(#colorBlue)" radius={[6, 6, 6, 6]} />
+                                    </BarChart>
+                                </ResponsiveContainer>
+                            </div>
+                        </Card>
+                    );
+
+                case 'pie':
+                    return (
+                        <Card key={widget.id} title={widget.title} subtitle={widget.description} className={`${colSpan} !rounded-[2.5rem]`}>
+                            <div className="h-[280px] w-full mt-4">
+                                <ResponsiveContainer width="100%" height="100%">
+                                    <PieChart>
+                                        <Pie
+                                            data={safeWidgetData}
+                                            innerRadius={70}
+                                            outerRadius={100}
+                                            paddingAngle={4}
+                                            dataKey="value"
+                                            cornerRadius={6}
+                                        >
+                                            {safeWidgetData.map((entry: any, index: number) => (
+                                                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} stroke="rgba(255,255,255,0.2)" strokeWidth={2} />
+                                            ))}
+                                        </Pie>
+                                        <Tooltip content={<CustomTooltip />} />
+                                        <Legend iconType="circle" verticalAlign="bottom" height={36} formatter={(value) => <span className="text-xs font-bold text-slate-500">{value}</span>} />
+                                    </PieChart>
+                                </ResponsiveContainer>
+                            </div>
+                        </Card>
+                    );
+
+                case 'insight':
+                    return (
+                        <div key={widget.id} className={`${colSpan} bg-gradient-to-br from-blue-600 to-indigo-700 p-8 rounded-[2.5rem] text-white shadow-2xl shadow-blue-500/30 relative overflow-hidden group`}>
+                            <div className="absolute -top-10 -right-10 p-10 bg-white/10 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700" />
+                            <div className="relative z-10 h-full flex flex-col justify-center">
+                                <div className="flex items-center space-x-2 mb-4">
+                                    <div className="bg-white/20 p-2 rounded-lg backdrop-blur-sm">
+                                        <BrainCircuit className="w-5 h-5 text-white" />
+                                    </div>
+                                    <span className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-100">AI Insight</span>
+                                </div>
+                                <h3 className="text-xl font-black tracking-tight mb-2">{widget.title}</h3>
+                                <p className="text-blue-50 font-medium leading-relaxed text-sm opacity-90">
+                                    {widget.description || "The data suggests a strong correlation between these metrics. Consider optimizing the workflow to improve overall efficiency."}
+                                </p>
+                            </div>
+                        </div>
+                    );
+
+                case 'line':
+                    return (
+                        <Card key={widget.id} title={widget.title} subtitle={widget.description} className={`${colSpan} !rounded-[2.5rem]`}>
+                            <div className="h-[280px] w-full mt-4">
+                                <ResponsiveContainer width="100%" height="100%">
+                                    <LineChart data={safeWidgetData}>
+                                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
+                                        <XAxis dataKey="label" fontSize={10} fontWeight={800} stroke="#94a3b8" axisLine={false} tickLine={false} dy={10} />
+                                        <Tooltip content={<CustomTooltip />} />
+                                        <Line type="monotone" dataKey="value" stroke="url(#colorViolet)" strokeWidth={4} dot={{ r: 4, strokeWidth: 0, fill: '#8b5cf6' }} activeDot={{ r: 6, strokeWidth: 2, fill: 'white', stroke: '#8b5cf6' }} />
+                                    </LineChart>
+                                </ResponsiveContainer>
+                            </div>
+                        </Card>
+                    );
+
+                case 'area':
+                    return (
+                        <Card key={widget.id} title={widget.title} subtitle={widget.description} className={`${colSpan} !rounded-[2.5rem]`}>
+                            <div className="h-[280px] w-full mt-4">
+                                <ResponsiveContainer width="100%" height="100%">
+                                    <AreaChart data={safeWidgetData}>
+                                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
+                                        <XAxis dataKey="label" fontSize={10} fontWeight={800} stroke="#94a3b8" axisLine={false} tickLine={false} dy={10} />
+                                        <Tooltip content={<CustomTooltip />} />
+                                        <Area type="monotone" dataKey="value" stroke="#f43f5e" strokeWidth={3} fillOpacity={1} fill="url(#colorRose)" />
+                                    </AreaChart>
+                                </ResponsiveContainer>
+                            </div>
+                        </Card>
+                    );
+
+                case 'leaderboard':
+                    const sortedData = [...safeWidgetData].sort((a: any, b: any) => b.value - a.value).slice(0, 5);
+                    return (
+                        <Card key={widget.id} title={widget.title} subtitle={widget.description} className={`${colSpan} !rounded-[2.5rem]`}>
+                            <div className="space-y-3 mt-6">
+                                {sortedData.map((item: any, i: number) => (
+                                    <div key={i} className="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-100 hover:bg-slate-100 hover:scale-[1.02] transition-all duration-200 cursor-default group">
+                                        <div className="flex items-center space-x-3">
+                                            <div className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-black ${i === 0 ? 'bg-yellow-100 text-yellow-600' : 'bg-white border border-slate-200 text-slate-400'}`}>
+                                                {i + 1}
+                                            </div>
+                                            <span className="text-xs font-bold text-slate-700 group-hover:text-blue-600 transition-colors">{item.label}</span>
+                                        </div>
+                                        <span className="text-sm font-black text-slate-900">{typeof item.value === 'number' ? item.value.toLocaleString() : item.value}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </Card>
+                    );
+
+                default:
+                    return null;
+            }
+        } catch (error) {
+            console.error(`SmartDashboard Widget Error (${widget.id} - ${widget.title}):`, error);
+            const colSpan = widget.width === 'full' ? 'lg:col-span-3' : widget.width === 'half' ? 'lg:col-span-1.5' : 'lg:col-span-1';
+            return (
+                <div key={widget.id} className={`${colSpan} p-8 rounded-[2rem] border border-red-200 bg-red-50 flex flex-col items-center justify-center text-center opacity-80`}>
+                    <Activity className="w-8 h-8 text-red-400 mb-2" />
+                    <h3 className="text-red-800 font-bold text-sm">Rendering Error</h3>
+                </div>
+            );
         }
     };
 
     return (
-        <div className="flex h-[800px] bg-white rounded-[2.5rem] overflow-hidden border border-slate-200 shadow-2xl animate-fade-in-up">
+        <div className="flex h-[800px] bg-white rounded-[2.5rem] overflow-hidden border border-slate-200 shadow-2xl animate-fade-in-up font-sans relative">
+            <ChartGradients />
+
             {/* Sidebar */}
             <aside className={`${isSidebarOpen ? 'w-72' : 'w-20'} bg-slate-900 transition-all duration-300 flex flex-col`}>
                 <div className="p-6 flex items-center justify-between text-white border-b border-white/10">
